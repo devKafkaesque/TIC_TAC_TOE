@@ -57,15 +57,18 @@ To get started with the React Tic-Tac-Toe application:
 ```
 react-tic-tac-toe/
 ├── public/
-│   └── index.html          # The HTML template
+│   └── images              # project images 
 ├── src/
 │   ├── components/
-│   │   ├── Board.js        # Board component
-│   │   ├── Square.js       # Square component
+│   │   ├── Gameboard.js    # Board component
+│   │   ├── Player.js       # Player component
+|   |   ├── Log.js          # Under-Dev component
 │   ├── App.js              # Main App component
 │   ├── index.js            # Entry point for the React application
 │   └── style.css           # Custom styles
-└── package.json            # Project metadata and dependencies
+├── package.json            # Project metadata and dependencies
+└── index.html              # main template
+
 ```
 
 ## Future Improvements
