@@ -1,28 +1,43 @@
-import Player from '/src/components/Player.jsx';
+import { useState } from "react";
+import Player from "./components/Player.jsx";
 import Gameboard from "./components/Gameboard.jsx";
-import {useState} from "react";
+import Log from "./components/Log.jsx";
 
 function App() {
     const [activePlayer, setActivePlayer] = useState('X');
+    const [playerNames, setPlayerNames] = useState({ X: 'Me', O: 'Vishist' });
 
     function handleSelectSquare() {
-        setActivePlayer((curActivePlayer)=> curActivePlayer==='X' ? 'O' : 'X');
+        setActivePlayer((curActivePlayer) => (curActivePlayer === 'X' ? 'O' : 'X'));
     }
 
-    return <main>
-        <div id='game-container'>
-            <ol id='players' className='highlight-player'>
-                <Player name= 'Me' symbol= 'X' isActive={activePlayer==='X'}/>
-                <Player name= 'Vishist' symbol= 'O' isActive={activePlayer==='O'}/>
-            </ol>
+    function handleNameChange(symbol, newName) {
+        setPlayerNames((prevNames) => ({ ...prevNames, [symbol]: newName }));
+    }
 
-            GAME BOARD
-            <Gameboard onSelectSquare={handleSelectSquare} activePlayerSymbol={activePlayer}/>
-        </div>
+    return (
+        <main>
+            <div id="game-container">
+                <ol id="players" className="highlight-player">
+                    <Player
+                        name={playerNames['X']}
+                        symbol="X"
+                        isActive={activePlayer === 'X'}
+                        onChangeName={(newName) => handleNameChange('X', newName)}
+                    />
+                    <Player
+                        name={playerNames['O']}
+                        symbol="O"
+                        isActive={activePlayer === 'O'}
+                        onChangeName={(newName) => handleNameChange('O', newName)}
+                    />
+                </ol>
 
-        LOG
-    </main>
-
+                <Gameboard onSelectSquare={handleSelectSquare} activePlayerSymbol={activePlayer} />
+            </div>
+            <Log />
+        </main>
+    );
 }
 
-export default App
+export default App;

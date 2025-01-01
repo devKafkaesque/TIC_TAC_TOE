@@ -1,41 +1,37 @@
-import {useState} from "react";
+import { useState } from "react";
 
-export default function Player({name, symbol, isActive}) {
-    const [Name, setName] = useState(name);
+export default function Player({ name, symbol, isActive, onChangeName }) {
     const [isEditing, setIsEditing] = useState(false);
+    const [playerName, setPlayerName] = useState(name);
 
-    function handleClick() {
-        setIsEditing((isEditing)=>!isEditing); // Disable editing mode
-    }
-
-    function handleInputChange(event) {
-        setName(event.target.value); // Update the state with input value
+    function handleSave() {
+        setIsEditing(false);
+        onChangeName(playerName);
     }
 
     return (
-        <li className={isActive ? 'active': undefined}>
+        <li className={isActive ? "active" : undefined}>
             {isEditing ? (
                 <>
-                    <span className='player'>
-                    <input
-                        placeholder="Enter Name"
-                        value={Name} // Link input value to state
-                        onChange={handleInputChange} // Update state on input change
-                    />
+                    <span className="player">
+                        <input
+                            value={playerName}
+                            onChange={(e) => setPlayerName(e.target.value)}
+                            placeholder="Enter Name"
+                        />
                     </span>
                     <span className="player-symbol">{symbol}</span>
-                    <button onClick={handleClick}>Save</button>
+                    <button onClick={handleSave}>Save</button>
                 </>
             ) : (
                 <>
-                    <span className='player'>
-                    <span className="player-name">{Name}</span>
-                    <span className="player-symbol">{symbol}</span>
-                    <button onClick={handleClick}>Edit</button>
+                    <span className="player">
+                        <span className="player-name">{playerName}</span>
+                        <span className="player-symbol">{symbol}</span>
+                        <button onClick={() => setIsEditing(true)}>Edit</button>
                     </span>
                 </>
             )}
-
         </li>
     );
 }
